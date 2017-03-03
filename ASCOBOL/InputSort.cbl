@@ -11,7 +11,7 @@
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
            SELECT StudentFile ASSIGN TO "SORTSTUD.DAT"
-		                    ORGANIZATION IS LINE SEQUENTIAL.
+                            ORGANIZATION IS LINE SEQUENTIAL.
            SELECT WorkFile ASSIGN TO "WORK.TMP".
 
        DATA DIVISION.
@@ -35,7 +35,8 @@
        GetStudentDetails.
            DISPLAY "Enter student details using template below."
            DISPLAY "Enter no data to end.".
-           DISPLAY "Enter - StudId, Surname, Initials, YOB, MOB, DOB, Course, Gender"
+           DISPLAY "Enter - StudId, Surname, Initials, YOB, MOB, DOB,
+           Course, Gender"
            DISPLAY "NNNNNNNSSSSSSSSIIYYYYMMDDCCCCG"
            ACCEPT  WorkRec.
            PERFORM UNTIL WorkRec = SPACES
