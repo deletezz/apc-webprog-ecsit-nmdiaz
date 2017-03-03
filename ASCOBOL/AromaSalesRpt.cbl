@@ -16,7 +16,7 @@
 
        DATA DIVISION.
        FILE SECTION.
-       Sales-Cust-ID   PIC X(5).
+       Sales-Cust-ID   PIC 9(5).
        Sales-Cust-Name PIC X(20).
        Sales-Oil-ID    PIC X(3).
        Sales-Unit-Size PIC 9(1).
