@@ -122,7 +122,84 @@
            02  Prev-Cust-Id            PIC X(5).
 
        PROCEDURE DIVISION.
-       MAIN-PROCEDURE.
-            DISPLAY "Hello world"
-            STOP RUN.
-       END PROGRAM YOUR-PROGRAM-NAME.
+       Produce-Summary-Report.
+           SORT Aroma-Work ON ASCENDING AW-Customer-Name
+                INPUT PROCEDURE IS Select-Essential-Oils
+                OUTPUT PROCEDURE IS Print-Summary-Report.
+           STOP RUN.
+
+       Select-Essential-Oils.
+           OPEN INPUT Aroma-Sales.
+           READ Aroma-Sales
+               AT END SET End-Of-Sales-File TO TRUE
+           END-READ.
+
+           PERFORM UNTIL End-Of-Sales-File
+               IF Essential-Oil
+                   RELEASE Work-Rec FROM Sales-Rec
+               END-IF
+           READ Aroma-Sales
+               AT END SET End-Of-Sales-File TO TRUE
+           END-READ
+           END-PERFORM.
+
+           CLOSE Aroma-Sales.
+
+       Print-Summary-Report.
+           OPEN OUTPUT Aroma-Report.
+           OPEN OUTPUT Aroma-Sorted.
+           WRITE Print-Line FROM Report-Main-Title AFTER
+           ADVANCING 1 LINE.
+           WRITE Print-Line FROM Report-Title-Underline AFTER
+           ADVANCING 1 LINE.
+           WRITE Print-Line FROM Report-Subtitles AFTER
+           ADVANCING 3 LINES.
+
+           RETURN Aroma-Work
+               AT END SET End-Of-Work-File TO TRUE
+           END-RETURN.
+
+           PERFORM Print-Customer-Lines UNTIL End-Of-Work-File
+
+
+           MOVE Total-Sales TO Prn-Total-Sales.
+           WRITE Print-Line FROM Total-Sales-Line AFTER ADVANCING 3 LINES.
+
+           MOVE Total-Qty-Sold TO Prn-Total-Qty-Sold.
+           WRITE Print-Line FROM Total-Qty-Sold-Line AFTER
+           ADVANCING 2 LINES.
+
+           MOVE Total-Sales-Value TO Prn-Total-Sales-Value.
+           WRITE Print-Line FROM Total-Sales-Value-Line AFTER
+           ADVANCING 2 LINES.
+
+           CLOSE Aroma-Report, Aroma-Sorted.
+
+       Print-Customer-Lines.
+           MOVE ZEROS TO Cust-Totals.
+           MOVE AW-Customer-Id TO Prn-Cust-Id, Prev-Cust-Id.
+           MOVE AW-Customer-Name TO Prn-Cust-Name.
+
+           PERFORM UNTIL AW-Customer-Id NOT = Prev-Cust-Id
+               WRITE Sorted-Record FROM Work-Rec
+               ADD 1 TO Cust-Sales, Total-Sales
+
+               COMPUTE Sale-Qty-Sold = AW-Unit-Size * AW-Units-Sold
+               ADD Sale-Qty-Sold TO Cust-Qty-Sold, Total-Qty-Sold
+
+               COMPUTE Value-Of-Sale = Sale-Qty-Sold *
+               Oil-Cost(AW-Oil-Number)
+               ADD Value-Of-Sale TO Cust-Sales-Value,
+               Total-Sales-Value
+
+               RETURN Aroma-Work
+                   AT END SET End-Of-Work-File TO TRUE
+               END-RETURN
+           END-PERFORM.
+
+           MOVE Cust-Sales TO Prn-Cust-Sales.
+           MOVE Cust-Qty-Sold TO Prn-Qty-Sold.
+           MOVE Cust-Sales-Value TO Prn-Sales-Value.
+
+           WRITE Print-Line FROM Customer-Sales-Line AFTER
+           ADVANCING 2 LINES.
