@@ -16,5 +16,29 @@
             <td></td>
             <td><input type="submit" name="submit" value="Create news item" /></td>
         </tr>
+		<tr>
+            <td><label for="title">Complete Name</label></td>
+            <td><input type="input" name="title" size="50" /></td>
+        </tr>
+		<tr>
+            <td><label for="title">Nickname</label></td>
+            <td><input type="input" name="title" size="50" /></td>
+        </tr>
+		<tr>
+            <td><label for="title">Email Address</label></td>
+            <td><input type="input" name="title" size="50" /></td>
+        </tr>
+		<tr>
+            <td><label for="title">Home Address</label></td>
+            <td><input type="input" name="title" size="50" /></td>
+        </tr>
+		<tr>
+            <td><label for="title">Gender</label></td>
+            <td><input type="input" name="title" size="50" /></td>
+        </tr>
+		<tr>
+            <td><label for="title">Cellphone</label></td>
+            <td><input type="input" name="title" size="50" /></td>
+        </tr>
     </table>    
 </form>
