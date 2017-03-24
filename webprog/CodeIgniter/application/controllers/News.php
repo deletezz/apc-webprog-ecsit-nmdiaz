@@ -27,7 +27,7 @@ class News extends CI_Controller {
             show_404();
         }
  
-        $data['Complete_Name'] = $data['news_item']['Complete Name'];
+        $data['Complete_Name'] = $data['news_item']['Complete_Name'];
  
         $this->load->view('templates/header', $data);
         $this->load->view('news/view', $data);
